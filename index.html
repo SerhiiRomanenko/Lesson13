@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+
+        const todo = {
+            tasks : [
+
+                {
+                    task: 'clean up',
+                    text: 'Clean rooms',
+                    status: false,
+                },
+                {
+                    task: 'cook food',
+                    text: 'cook some food',
+                    status: true,
+                },
+                {
+                    task: 'wash car',
+                    text: 'clean in the car',
+                    status: false,
+                },
+            ],
+
+            addTask(newTask, newText, newStatus = false) {
+                for (let task of this.tasks) {
+                    if (newTask === task.task || newText === task.text) {
+                        alert('Oops, this task already exists');
+                        return todo;
+                    }; 
+                };
+                this.tasks.push({task: newTask, text : newText, status : newStatus});
+                return todo;
+            },
+
+            deleteTask(taskToDel) {
+                for (let i = 0; i < this.tasks.length; i++) {
+                    if (this.tasks[i].task === taskToDel) {
+                        this.tasks.splice(i, 1);
+                        return todo;
+                    }
+                    
+                }
+            },
+
+            editTask(oldTask, newTask, oldText, newText) {
+                for (let task of this.tasks) {
+                    if (oldTask === task.task) {
+                        task.task = newTask;
+                    };
+                    if (oldText === task.text) {
+                        task.text = newText;
+                    }
+                };
+                return todo;
+            },
+
+            showSortedTasks() {
+                
+                let sortedTasks = {
+                    completedTasks : [],
+                    uncompletedTasks : [],
+                };
+                let counter = 0;
+                for (let task of this.tasks) {
+                    if (task.status === true) {
+                        sortedTasks.completedTasks.push(task);
+                        counter++;
+                    } else {
+                        sortedTasks.uncompletedTasks.push(task);
+                    }
+                }
+                console.log(`Всего  задач ${this.tasks.length},  выполнено ${counter} , невыполнено ${this.tasks.length - counter}`);
+                console.log(sortedTasks);
+            }
+        }
+
+        // console.log(todo);
+        todo.addTask('have rest', 'Relax and do nothing', true);
+        todo.deleteTask('cook food');
+        todo.editTask('clean up', 'go for a walk', "Clean rooms", 'walk with friends');
+        todo.showSortedTasks();
+        console.log(todo);
+
+        
+
+    </script>
+
+</body>
+</html>
