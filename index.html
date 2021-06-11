@@ -31,15 +31,16 @@
             ],
 
             addTask(newTask, newText, newStatus = false) {
-                for (let task of this.tasks) {
-                    if (newTask === task.task || newText === task.text) {
+                this.tasks.forEach(element => {
+                    if (newTask === element.task || newText === element.text) {
                         alert('Oops, this task already exists');
                         return todo;
                     }; 
-                };
+                });
                 this.tasks.push({task: newTask, text : newText, status : newStatus});
                 return todo;
             },
+
 
             deleteTask(taskToDel) {
                 for (let i = 0; i < this.tasks.length; i++) {
