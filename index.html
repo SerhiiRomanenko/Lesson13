@@ -55,6 +55,12 @@
 
             editTask(oldTask, newTask, oldText, newText) {
                 this.tasks.find(tasks => {
+                    if (newTask === tasks.task || newText === tasks.text) {
+                        alert('Oops, this task already exists');
+                        return;
+                    }
+                });
+                this.tasks.find(tasks => {
                     if (oldTask === tasks.task) {
                         tasks.task = newTask;
                     };
