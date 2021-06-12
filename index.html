@@ -31,8 +31,8 @@
             ],
 
             addTask(newTask, newText, newStatus = false) {
-                this.tasks.forEach(element => {
-                    if (newTask === element.task || newText === element.text) {
+                this.tasks.forEach(tasks => {
+                    if (newTask === tasks.task || newText === tasks.text) {
                         alert('Oops, this task already exists');
                         return todo;
                     }; 
@@ -40,7 +40,6 @@
                 this.tasks.push({task: newTask, text : newText, status : newStatus});
                 return todo;
             },
-
 
             deleteTask(taskToDel) {
                 for (let i = 0; i < this.tasks.length; i++) {
@@ -53,14 +52,14 @@
             },
 
             editTask(oldTask, newTask, oldText, newText) {
-                for (let task of this.tasks) {
-                    if (oldTask === task.task) {
-                        task.task = newTask;
+                this.tasks.forEach(tasks => {
+                    if (oldTask === tasks.task) {
+                        tasks.task = newTask;
                     };
-                    if (oldText === task.text) {
-                        task.text = newText;
+                    if (oldText === tasks.text) {
+                        tasks.text = newText;
                     }
-                };
+                });
                 return todo;
             },
 
@@ -79,19 +78,16 @@
                         sortedTasks.uncompletedTasks.push(task);
                     }
                 }
-                console.log(`Всего  задач ${this.tasks.length},  выполнено ${counter} , невыполнено ${this.tasks.length - counter}`);
+                console.log(`Всего  задач ${this.tasks.length},  выполнено ${counter} , не выполнено ${this.tasks.length - counter}`);
                 console.log(sortedTasks);
             }
         }
 
-        // console.log(todo);
         todo.addTask('have rest', 'Relax and do nothing', true);
         todo.deleteTask('cook food');
         todo.editTask('clean up', 'go for a walk', "Clean rooms", 'walk with friends');
         todo.showSortedTasks();
         console.log(todo);
-
-        
 
     </script>
 
