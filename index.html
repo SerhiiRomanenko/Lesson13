@@ -54,7 +54,7 @@
             },
 
             editTask(oldTask, newTask, oldText, newText) {
-                this.tasks.forEach(tasks => {
+                this.tasks.find(tasks => {
                     if (oldTask === tasks.task) {
                         tasks.task = newTask;
                     };
