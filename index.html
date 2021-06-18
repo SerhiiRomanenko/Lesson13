@@ -67,21 +67,35 @@
             },
             
             getStatistic() {
-                
+
                 const result = {
                     completedTasks : 0,
                     uncompletedTasks : 0,
                 };
 
                 this.notes.filter(note => {
-                    if (note.status === true) {
+                    if (note.status) {
                         result.completedTasks ++;
-                    } else {
-                        result.uncompletedTasks ++;
                     }
+                    result.uncompletedTasks ++;
                 })
                 return result;
             }
+
+                // return this.notes.reduce(
+                //     (prev, note) => {
+                //     if (!prev[note.status]) {
+                //         prev[note.status] = 0;
+                //     }
+                    
+                //     prev[note.status]++;
+                //     return prev;
+                //     },
+                //     {
+                //         total: this.notes.length,
+                //     }
+                // )}
+                
         }
 
         toDo.addNote('cook', 'cook some food');
@@ -91,105 +105,6 @@
         toDo.editNote('relax', {title: 'Do HW', text: 'Edit toDo'});
         console.log(toDo.getStatistic());
         console.log(toDo);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        // const todo = {
-        //     tasks : [
-
-        //         {
-        //             task: 'clean up',
-        //             text: 'Clean rooms',
-        //             status: false,
-        //         },
-        //         {
-        //             task: 'cook food',
-        //             text: 'cook some food',
-        //             status: true,
-        //         },
-        //         {
-        //             task: 'wash car',
-        //             text: 'clean in the car',
-        //             status: false,
-        //         },
-        //         {
-        //             task: 'do hw',
-        //             text: 'do my homework',
-        //             status: true,
-        //         },
-        //     ],
-
-        //     addTask(newTask, newText, newStatus = false) {
-        //         this.tasks.forEach(tasks => {
-        //             if (newTask === tasks.task || newText === tasks.text) {
-        //                 alert('Oops, this task already exists');
-        //                 return;
-        //             }; 
-        //         });
-        //         this.tasks.push({task: newTask, text : newText, status : newStatus});
-        //     },
-
-        //     deleteTask(taskToDel) {
-        //         todo.tasks.map(function(task, index) {
-        //             if (task.task === taskToDel) {
-        //                 todo.tasks.splice(index, 1);
-        //             }
-        //         })
-        //     },
-
-
-        //     editTask(oldTask, newTask, oldText, newText) {
-        //         this.tasks.find(tasks => {
-        //             if (newTask === tasks.task || newText === tasks.text) {
-        //                 alert('Oops, this task already exists');
-        //                 return;
-        //             } else if (oldTask === tasks.task) {
-        //                 tasks.task = newTask;
-        //             } else if (oldText === tasks.text) {
-        //                 tasks.text = newText;
-        //             }
-        //         });
-        //     },
-
-        //     showSortedTasks() {
-                
-        //         let sortedTasks = {
-        //             completedTasks : [],
-        //             uncompletedTasks : [],
-        //         };
-
-        //         let counterDoneTasks = 0;
-
-        //         this.tasks.filter(task => {
-        //             if (task.status === true) {
-        //                 counterDoneTasks++;
-        //                 sortedTasks.completedTasks.push(task);
-        //             } else {
-        //                 sortedTasks.uncompletedTasks.push(task);
-        //             }
-        //         })
-
-        //         console.log(`Всего  задач ${this.tasks.length},  выполнено ${counterDoneTasks} , не выполнено ${this.tasks.length - counterDoneTasks}`);
-        //         console.log(sortedTasks);
-        //     }
-        // }
-
-        // todo.addTask('have rest', 'Relax and do nothing');
-        // todo.deleteTask('cook food');
-        // todo.editTask('clean up', 'go for a walk', "Clean rooms", 'walk with friends');
-        // todo.showSortedTasks();
-        // console.log(todo);
 
     </script>
 
