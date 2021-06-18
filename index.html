@@ -10,91 +10,159 @@
     
     <script>
 
-        const todo = {
-            tasks : [
 
-                {
-                    task: 'clean up',
-                    text: 'Clean rooms',
-                    status: false,
-                },
-                {
-                    task: 'cook food',
-                    text: 'cook some food',
-                    status: true,
-                },
-                {
-                    task: 'wash car',
-                    text: 'clean in the car',
-                    status: false,
-                },
-                {
-                    task: 'do hw',
-                    text: 'do my homework',
-                    status: true,
+
+
+
+        const toDo = {
+            notes : [
+            {
+                title: 'clean up',
+                text: 'clean rooms',
+                status: false,
                 },
             ],
 
-            addTask(newTask, newText, newStatus = false) {
-                this.tasks.forEach(tasks => {
-                    if (newTask === tasks.task || newText === tasks.text) {
-                        alert('Oops, this task already exists');
-                        return;
-                    }; 
-                });
-                this.tasks.push({task: newTask, text : newText, status : newStatus});
+            addNote(title, text) {
+
+                const isNotUnique = this.isNotUnique({title, text});
+
+                if(isNotUnique) {
+                    throw new Error('This value exists');
+                }
+
+                const note = {
+                    title,
+                    text,
+                    status : false,
+                }
+                this.notes.push(note);
             },
 
-            deleteTask(taskToDel) {
-                todo.tasks.map(function(task, index) {
-                    if (task.task === taskToDel) {
-                        todo.tasks.splice(index, 1);
+            delNote(value) {
+                this.notes = this.notes.filter(note => note.title !== value);
+            },
+
+            editNote(value, payload) {},
+
+            getStatistic() {},
+
+            isNotUnique({title, text}) {
+                const note = this.notes.find(note => {
+                    if (title === note.title || text === note.text) {
+                        console.log(title, text);
+                        return true;
                     }
                 })
+                return !!note;
             },
 
-
-            editTask(oldTask, newTask, oldText, newText) {
-                this.tasks.find(tasks => {
-                    if (newTask === tasks.task || newText === tasks.text) {
-                        alert('Oops, this task already exists');
-                        return;
-                    } else if (oldTask === tasks.task) {
-                        tasks.task = newTask;
-                    } else if (oldText === tasks.text) {
-                        tasks.text = newText;
-                    }
-                });
-            },
-
-            showSortedTasks() {
-                
-                let sortedTasks = {
-                    completedTasks : [],
-                    uncompletedTasks : [],
-                };
-
-                let counterDoneTasks = 0;
-
-                this.tasks.filter(task => {
-                    if (task.status === true) {
-                        counterDoneTasks++;
-                        sortedTasks.completedTasks.push(task);
-                    } else {
-                        sortedTasks.uncompletedTasks.push(task);
-                    }
-                })
-
-                console.log(`Всего  задач ${this.tasks.length},  выполнено ${counterDoneTasks} , не выполнено ${this.tasks.length - counterDoneTasks}`);
-                console.log(sortedTasks);
-            }
         }
 
-        todo.addTask('have rest', 'Relax and do nothing');
-        todo.deleteTask('cook food');
-        todo.editTask('clean up', 'go for a walk', "Clean rooms", 'walk with friends');
-        todo.showSortedTasks();
-        console.log(todo);
+        // toDo.isNotUnique({title: 'clean up', text: 'clean rooms'});
+        toDo.addNote('cook', 'cook some food');
+        toDo.addNote('relax', 'have fun time with friends');
+        toDo.delNote('cook');
+        console.log(toDo);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        // const todo = {
+        //     tasks : [
+
+        //         {
+        //             task: 'clean up',
+        //             text: 'Clean rooms',
+        //             status: false,
+        //         },
+        //         {
+        //             task: 'cook food',
+        //             text: 'cook some food',
+        //             status: true,
+        //         },
+        //         {
+        //             task: 'wash car',
+        //             text: 'clean in the car',
+        //             status: false,
+        //         },
+        //         {
+        //             task: 'do hw',
+        //             text: 'do my homework',
+        //             status: true,
+        //         },
+        //     ],
+
+        //     addTask(newTask, newText, newStatus = false) {
+        //         this.tasks.forEach(tasks => {
+        //             if (newTask === tasks.task || newText === tasks.text) {
+        //                 alert('Oops, this task already exists');
+        //                 return;
+        //             }; 
+        //         });
+        //         this.tasks.push({task: newTask, text : newText, status : newStatus});
+        //     },
+
+        //     deleteTask(taskToDel) {
+        //         todo.tasks.map(function(task, index) {
+        //             if (task.task === taskToDel) {
+        //                 todo.tasks.splice(index, 1);
+        //             }
+        //         })
+        //     },
+
+
+        //     editTask(oldTask, newTask, oldText, newText) {
+        //         this.tasks.find(tasks => {
+        //             if (newTask === tasks.task || newText === tasks.text) {
+        //                 alert('Oops, this task already exists');
+        //                 return;
+        //             } else if (oldTask === tasks.task) {
+        //                 tasks.task = newTask;
+        //             } else if (oldText === tasks.text) {
+        //                 tasks.text = newText;
+        //             }
+        //         });
+        //     },
+
+        //     showSortedTasks() {
+                
+        //         let sortedTasks = {
+        //             completedTasks : [],
+        //             uncompletedTasks : [],
+        //         };
+
+        //         let counterDoneTasks = 0;
+
+        //         this.tasks.filter(task => {
+        //             if (task.status === true) {
+        //                 counterDoneTasks++;
+        //                 sortedTasks.completedTasks.push(task);
+        //             } else {
+        //                 sortedTasks.uncompletedTasks.push(task);
+        //             }
+        //         })
+
+        //         console.log(`Всего  задач ${this.tasks.length},  выполнено ${counterDoneTasks} , не выполнено ${this.tasks.length - counterDoneTasks}`);
+        //         console.log(sortedTasks);
+        //     }
+        // }
+
+        // todo.addTask('have rest', 'Relax and do nothing');
+        // todo.deleteTask('cook food');
+        // todo.editTask('clean up', 'go for a walk', "Clean rooms", 'walk with friends');
+        // todo.showSortedTasks();
+        // console.log(todo);
 
     </script>
 
