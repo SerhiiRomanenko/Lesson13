@@ -68,29 +68,24 @@
             
             getStatistic() {
                 
-                        let sortedTasks = {
-                            completedTasks : [],
-                            uncompletedTasks : [],
-                        };
-        
-                        let counterDoneTasks = 0;
-        
-                        this.notes.filter(note => {
-                            if (note.status === true) {
-                                counterDoneTasks++;
-                                sortedTasks.completedTasks.push(note);
-                            } else {
-                                sortedTasks.uncompletedTasks.push(note);
-                            }
-                        })
-        
-                        console.log(`Всего  задач ${this.notes.length},  выполнено ${counterDoneTasks} , не выполнено ${this.notes.length - counterDoneTasks}`);
-                        return(sortedTasks);
-                    }
+                const result = {
+                    completedTasks : 0,
+                    uncompletedTasks : 0,
+                };
 
+                this.notes.filter(note => {
+                    if (note.status === true) {
+                        result.completedTasks ++;
+                    } else {
+                        result.uncompletedTasks ++;
+                    }
+                })
+                return result;
+            }
         }
 
         toDo.addNote('cook', 'cook some food');
+        toDo.addNote('help brother', 'repair a chair');
         toDo.addNote('relax', 'have fun time with friends');
         toDo.delNote('cook');
         toDo.editNote('relax', {title: 'Do HW', text: 'Edit toDo'});
