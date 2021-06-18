@@ -19,7 +19,7 @@
             {
                 title: 'clean up',
                 text: 'clean rooms',
-                status: false,
+                status: true,
                 },
             ],
 
@@ -51,18 +51,15 @@
                 };
 
                 const isNotUnique = this.isNotUnique(payload);
-
+                
                 if(isNotUnique) {
                     throw new Error('This value exists');
                 };
-
+                
                 note.title = payload.title || note.title;
                 note.text = payload.text || note.text;
 
             },
-
-            getStatistic() {},
-
             isNotUnique({title, text}) {
                 const note = this.notes.find(note => {
                     if (title === note.title || text === note.text) {
@@ -71,13 +68,37 @@
                 })
                 return !!note;
             },
+            
+            getStatistic() {
+                
+                        let sortedTasks = {
+                            completedTasks : [],
+                            uncompletedTasks : [],
+                        };
+        
+                        let counterDoneTasks = 0;
+        
+                        this.notes.filter(note => {
+                            if (note.status === true) {
+                                counterDoneTasks++;
+                                sortedTasks.completedTasks.push(note);
+                            } else {
+                                sortedTasks.uncompletedTasks.push(note);
+                            }
+                        })
+        
+                        console.log(`Всего  задач ${this.notes.length},  выполнено ${counterDoneTasks} , не выполнено ${this.notes.length - counterDoneTasks}`);
+                        console.log(sortedTasks);
+                    }
+
 
         }
 
         toDo.addNote('cook', 'cook some food');
         toDo.addNote('relax', 'have fun time with friends');
         toDo.delNote('cook');
-        toDo.editNote('relax', {title: 'Do HW', text: 'Edit toDo'})
+        toDo.editNote('relax', {title: 'Do HW', text: 'Edit toDo'});
+        toDo.getStatistic();
         console.log(toDo);
 
 
