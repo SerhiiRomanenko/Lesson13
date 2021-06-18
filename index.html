@@ -10,10 +10,6 @@
     
     <script>
 
-
-
-
-
         const toDo = {
             notes : [
             {
@@ -60,6 +56,7 @@
                 note.text = payload.text || note.text;
 
             },
+
             isNotUnique({title, text}) {
                 const note = this.notes.find(note => {
                     if (title === note.title || text === note.text) {
@@ -88,9 +85,8 @@
                         })
         
                         console.log(`Всего  задач ${this.notes.length},  выполнено ${counterDoneTasks} , не выполнено ${this.notes.length - counterDoneTasks}`);
-                        console.log(sortedTasks);
+                        return(sortedTasks);
                     }
-
 
         }
 
@@ -98,7 +94,7 @@
         toDo.addNote('relax', 'have fun time with friends');
         toDo.delNote('cook');
         toDo.editNote('relax', {title: 'Do HW', text: 'Edit toDo'});
-        toDo.getStatistic();
+        console.log(toDo.getStatistic());
         console.log(toDo);
 
 
