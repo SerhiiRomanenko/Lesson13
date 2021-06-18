@@ -43,14 +43,29 @@
                 this.notes = this.notes.filter(note => note.title !== value);
             },
 
-            editNote(value, payload) {},
+            editNote(value, payload) {
+                const note = this.notes.find(note => note.title === value);
+
+                if (!note) {
+                    throw new Error(`This note doesn't exists`);
+                };
+
+                const isNotUnique = this.isNotUnique(payload);
+
+                if(isNotUnique) {
+                    throw new Error('This value exists');
+                };
+
+                note.title = payload.title || note.title;
+                note.text = payload.text || note.text;
+
+            },
 
             getStatistic() {},
 
             isNotUnique({title, text}) {
                 const note = this.notes.find(note => {
                     if (title === note.title || text === note.text) {
-                        console.log(title, text);
                         return true;
                     }
                 })
@@ -59,10 +74,10 @@
 
         }
 
-        // toDo.isNotUnique({title: 'clean up', text: 'clean rooms'});
         toDo.addNote('cook', 'cook some food');
         toDo.addNote('relax', 'have fun time with friends');
         toDo.delNote('cook');
+        toDo.editNote('relax', {title: 'Do HW', text: 'Edit toDo'})
         console.log(toDo);
 
 
