@@ -68,33 +68,19 @@
             
             getStatistic() {
 
-                const result = {
-                    completedTasks : 0,
-                    uncompletedTasks : 0,
-                };
-
-                this.notes.filter(note => {
-                    if (note.status) {
-                        result.completedTasks ++;
+                return this.notes.reduce(
+                    (prev, note) => {
+                    if (!prev[note.status]) {
+                        prev[note.status] = 0;
                     }
-                    result.uncompletedTasks ++;
-                })
-                return result;
-            }
-
-                // return this.notes.reduce(
-                //     (prev, note) => {
-                //     if (!prev[note.status]) {
-                //         prev[note.status] = 0;
-                //     }
                     
-                //     prev[note.status]++;
-                //     return prev;
-                //     },
-                //     {
-                //         total: this.notes.length,
-                //     }
-                // )}
+                    prev[note.status]++;
+                    return prev;
+                    },
+                    {
+                        total: this.notes.length,
+                    }
+                )}
                 
         }
 
